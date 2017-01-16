@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="FIS_AT">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../../Eclipse/eclipse/"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <path id="TestNG.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}plugins/org.testng.eclipse_6.9.11.201604020423/lib/testng.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.testng.eclipse_6.9.11.201604020423/lib/jcommander.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.testng.eclipse_6.9.11.201604020423/lib/bsh-2.0b4.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.testng.eclipse_6.9.11.201604020423/lib/snakeyaml.jar"/>
+    </path>
+    <path id="FIS_AT.classpath">
+        <pathelement location="bin"/>
+        <path refid="TestNG.libraryclasspath"/>
+        <pathelement location="lib/curvesapi-1.03.jar"/>
+        <pathelement location="lib/xmlbeans-2.6.0.jar"/>
+        <pathelement location="lib/poi-3.14-20160307.jar"/>
+        <pathelement location="lib/poi-examples-3.14-20160307.jar"/>
+        <pathelement location="lib/poi-excelant-3.14-20160307.jar"/>
+        <pathelement location="lib/poi-ooxml-3.14-20160307.jar"/>
+        <pathelement location="lib/poi-ooxml-schemas-3.14-20160307.jar"/>
+        <pathelement location="lib/poi-scratchpad-3.14-20160307.jar"/>
+        <pathelement location="lib/commons-codec-1.10.jar"/>
+        <pathelement location="lib/commons-logging-1.2.jar"/>
+        <pathelement location="lib/junit-4.12.jar"/>
+        <pathelement location="lib/log4j-1.2.17.jar"/>
+        <pathelement location="lib/selenium-java-2.53.0.jar"/>
+        <pathelement location="lib/selenium-java-2.53.0-srcs.jar"/>
+        <pathelement location="lib/apache-mime4j-0.6.jar"/>
+        <pathelement location="lib/bsh-2.0b4.jar"/>
+        <pathelement location="lib/cglib-nodep-2.1_3.jar"/>
+        <pathelement location="lib/commons-codec-1.10.jar"/>
+        <pathelement location="lib/commons-exec-1.3.jar"/>
+        <pathelement location="lib/commons-io-2.4.jar"/>
+        <pathelement location="lib/commons-logging-1.2.jar"/>
+        <pathelement location="lib/gson-2.3.1.jar"/>
+        <pathelement location="lib/guava-19.0.jar"/>
+        <pathelement location="lib/hamcrest-core-1.3.jar"/>
+        <pathelement location="lib/hamcrest-library-1.3.jar"/>
+        <pathelement location="lib/httpclient-4.5.1.jar"/>
+        <pathelement location="lib/httpcore-4.4.3.jar"/>
+        <pathelement location="lib/httpmime-4.5.jar"/>
+        <pathelement location="lib/jcommander-1.48.jar"/>
+        <pathelement location="lib/jna-4.1.0.jar"/>
+        <pathelement location="lib/jna-platform-4.1.0.jar"/>
+        <pathelement location="lib/junit-4.12.jar"/>
+        <pathelement location="lib/netty-3.5.7.Final.jar"/>
+        <pathelement location="lib/phantomjsdriver-1.2.1.jar"/>
+        <pathelement location="lib/testng-6.9.9.jar"/>
+        <pathelement location="lib/saxon-8.7.jar"/>
+        <pathelement location="lib/SaxonLiaison.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="FIS_AT.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+              	<target name="generateReport">
+              	        <delete dir="${basedir}/testng-xslt">
+              	        </delete>
+              	        <mkdir dir="${basedir}/testng-xslt">
+              	        </mkdir>
+              	        <xslt in="${basedir}/test-output/testng-results.xml" style="${basedir}/testng-results.xsl" out="${basedir}/testng-xslt/index.html">
+              	            <param expression="${basedir}/testng-xslt/" name="testNgXslt.outputDir" />
+              	            <param expression="true" name="testNgXslt.sortTestCaseLinks" />
+              	            <param expression="FAIL,SKIP,PASS,CONF,BY_CLASS" name="testNgXslt.testDetailsFilter" />
+              	            <param expression="true" name="testNgXslt.showRuntimeTotals" />
+              	            <classpath refid="FIS_AT.classpath">
+              	            </classpath>
+              	        </xslt>
+              	    </target>
+</project>
